@@ -1,10 +1,9 @@
-import Admin from './pages/admin'
-import Home from './pages/Home'
+
+import AppRoutes from './routes/routes';
 function App() {
   return (
     <div className="App">
-      <Admin/>
-      <Home/>
+      <AppRoutes/>
     </div>
   );
 } 

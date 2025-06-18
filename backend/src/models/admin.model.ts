@@ -12,4 +12,4 @@ const adminSchema = new Schema<IAdmin>({
 });
 
 // força a coleção para 'adminusers'
-export default model<IAdmin>("AdminUser", adminSchema, "adminusers");
+export default model<IAdmin>("AdminUser", adminSchema, "admin");
