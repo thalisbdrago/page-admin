@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import axios from "axios";
 
+
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 
@@ -43,6 +44,7 @@ export default function Login() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+      
       <Card className="w-full max-w-md shadow-lg">
         <CardHeader className="bg-white pb-2">
           <CardTitle className="text-2xl font-bold text-center">Bem-vindo de volta</CardTitle>

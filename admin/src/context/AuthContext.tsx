@@ -1,18 +1,18 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-// Interface que define os dados do contexto de autenticação
+// Interface do contexto
 type AuthContextType = {
   isAuthenticated: boolean;
   login: () => void;
   logout: () => void;
 };
 
-// Criação do contexto com valor inicial nulo
+// Criação do contexto
 const AuthContext = createContext<AuthContextType | null>(null);
 
-// Provedor do contexto, que irá envolver a aplicação
+// Provedor do contexto
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  // Carrega estado inicial do localStorage
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
     try {
       return localStorage.getItem("isAuthenticated") === "true";
@@ -21,24 +21,52 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   });
 
-  // Sincroniza mudanças de isAuthenticated ao localStorage
+  // Salva estado no localStorage
   useEffect(() => {
     try {
       localStorage.setItem("isAuthenticated", isAuthenticated ? "true" : "false");
     } catch {
-      // Falha ao acessar localStorage (ex: modo privado)
+      // falha ao acessar localStorage
     }
   }, [isAuthenticated]);
 
-  // Função para logar: define e persiste
   const login = () => {
     setIsAuthenticated(true);
   };
 
-  // Função para deslogar: limpa estado e localStorage
   const logout = () => {
     setIsAuthenticated(false);
   };
+
+  // Auto logout por inatividade ou tempo limite (15 min)
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+
+    const resetTimer = () => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        logout();
+        window.location.href = "/login"; // Redireciona ao deslogar
+      }, 15 * 60 * 1000); // 15 minutos
+    };
+
+    if (isAuthenticated) {
+      window.addEventListener("mousemove", resetTimer);
+      window.addEventListener("keydown", resetTimer);
+      window.addEventListener("click", resetTimer);
+      window.addEventListener("scroll", resetTimer);
+
+      resetTimer();
+
+      return () => {
+        clearTimeout(timeout);
+        window.removeEventListener("mousemove", resetTimer);
+        window.removeEventListener("keydown", resetTimer);
+        window.removeEventListener("click", resetTimer);
+        window.removeEventListener("scroll", resetTimer);
+      };
+    }
+  }, [isAuthenticated]);
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
@@ -47,7 +75,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-// Hook personalizado para acessar o contexto
+// Hook para uso do contexto
 export function useAuth() {
   const context = useContext(AuthContext);
   if (!context) {
