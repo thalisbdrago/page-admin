@@ -52,11 +52,14 @@ npm run dev
 #### Backend (backend)
 
 cd backend
+
 npm install
+
 npm run dev
 
 
 Create a `.env` file in the `/backend` folder:
 
 MONGO_URI=your_mongo_connection_string
+
 JWT_SECRET=your_jwt_secret
