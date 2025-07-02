@@ -33,33 +33,62 @@ UI optimized with TailwindCSS + Shadcn/UI for smooth usability.
 
 ## 🧪 Getting Started
 
-Clone the repository:
+### 🔗 Clone the repository:
 
+```
 git clone https://github.com/thalisbdrago/page-admin.git
-
 cd page-admin
+```
+
+---
 
 ### 🔧 Setup
 
-#### Frontend (admin)
+#### 🔹 Frontend (admin)
 
+```
 cd admin
-
 npm install
-
 npm run dev
+```
 
-#### Backend (backend)
+#### 🔹 Backend (backend)
 
+```
 cd backend
-
 npm install
-
 npm run dev
+```
 
+Create a `.env` file inside the `/backend` folder with the following variables:
 
-Create a `.env` file in the `/backend` folder:
-
+```env
 MONGO_URI=your_mongo_connection_string
-
 JWT_SECRET=your_jwt_secret
+```
+
+---
+
+### 🧩 Admin User Setup (MongoDB)
+
+Before accessing the system, you must manually insert an admin user into the MongoDB collection:
+
+1. Open **MongoDB Compass** and navigate to the collection:  
+   `admin > admin > admin`
+
+2. Click on **"Add Data" → "Insert Document"**
+
+3. Use the following format:
+
+```json
+{
+  "email": "admin",
+  "password": "securepassword"
+}
+```
+
+> ⚠️ The password is stored as plain text (for demo purposes only). For production, implement proper hashing (e.g. bcrypt).
+
+---
+
+Now the system is ready to use!
