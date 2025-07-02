@@ -74,7 +74,7 @@ JWT_SECRET=your_jwt_secret
 Before accessing the system, you must manually insert an admin user into the MongoDB collection:
 
 1. Open **MongoDB Compass** and navigate to the collection:  
-   `admin > admin > admin`
+   `admP > admin > adminUser`
 
 2. Click on **"Add Data" → "Insert Document"**
 
