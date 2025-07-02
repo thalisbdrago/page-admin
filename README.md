@@ -36,6 +36,7 @@ UI optimized with TailwindCSS + Shadcn/UI for smooth usability.
 Clone the repository:
 
 git clone https://github.com/thalisbdrago/page-admin.git
+
 cd page-admin
 
 ### 🔧 Setup
@@ -43,7 +44,9 @@ cd page-admin
 #### Frontend (admin)
 
 cd admin
+
 npm install
+
 npm run dev
 
 #### Backend (backend)
